@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vishwesh — Portfolio</title>
+  <meta name="description" content="Portfolio of Vishwesh — AI & Software Enthusiast. Projects, skills, and GitHub repositories." />
+
+  <!-- Link to stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Fav icon (simple) -->
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+</head>
+<body>
+  <!-- THEME TOGGLE (keeps state in localStorage) -->
+  <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+
+  <!-- MAIN WRAPPER -->
+  <div class="container">
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">Hi, I'm <span class="accent">Vishwesh</span></h1>
+        <p class="hero-sub">AI & Software Engineering enthusiast — building machine learning demos, competitive programming tools and open-source projects.</p>
+        <div class="hero-actions">
+          <a id="resumeBtn" class="btn primary" href="#" target="_blank" rel="noreferrer">Download Resume</a>
+          <a id="contactBtn" class="btn outline" href="#contact">Contact</a>
+        </div>
+        <ul class="key-stats" aria-hidden="true">
+          <li><strong>Competitive</strong><span>CodeChef • AtCoder • Kaggle</span></li>
+          <li><strong>Focus</strong><span>ML, Systems, C++ & Python</span></li>
+          <li><strong>Location</strong><span>City, Country</span></li>
+        </ul>
+      </div>
+
+      <!-- decorative / avatar -->
+      <div class="hero-image" aria-hidden="true">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="avatar">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#7c3aed"/>
+              <stop offset="1" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" rx="24" fill="url(#g1)"></rect>
+          <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="44" fill="white" font-family="system-ui,Segoe UI,Roboto">V</text>
+        </svg>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT GRID -->
+    <main class="main-grid">
+      <!-- ABOUT -->
+      <section id="about" class="card section about">
+        <h2 class="section-title">About Me</h2>
+        <p id="aboutText" class="lead">I build machine learning demos, competitive programming solutions, and open-source tools. Long-term goal: internships leading to roles at top-tier AI/Software orgs.</p>
+        <div class="split">
+          <div>
+            <h3>Contact</h3>
+            <p><a id="email" href="mailto:you@example.com">you@example.com</a></p>
+            <p id="location">City, Country</p>
+            <div class="socials" id="socials"></div>
+          </div>
+          <div>
+            <h3>Competitions & Ranks</h3>
+            <ul id="competitions" class="list-compact">
+              <li>CodeChef — 3⭐ / 12th (Global)</li>
+              <li>AtCoder — Beginner → Expert</li>
+              <li>Kaggle — Diamond (top 1%)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="card section skills">
+        <h2 class="section-title">Skills</h2>
+        <div id="skillsGrid" class="skills-grid" aria-label="Skills">
+          <!-- filled by JS -->
+        </div>
+      </section>
+
+      <!-- PROJECTS (local sample projects) -->
+      <section id="projects" class="card section projects">
+        <h2 class="section-title">Projects</h2>
+        <div id="projectsGrid" class="projects-grid">
+          <!-- cards populated by JS -->
+        </div>
+      </section>
+
+      <!-- GITHUB REPOS (auto-synced) -->
+      <section id="github" class="card section github">
+        <div class="section-header">
+          <h2 class="section-title">GitHub Repositories</h2>
+          <div class="repo-controls">
+            <input id="repoSearch" class="input" placeholder="Search repos..." aria-label="Search repositories">
+            <button id="refreshRepos" class="btn small">Refresh</button>
+          </div>
+        </div>
+        <div id="reposGrid" class="repos-grid" aria-live="polite"></div>
+        <p id="reposNotice" class="muted"></p>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="card section contact">
+        <h2 class="section-title">Get in touch</h2>
+        <p>If you'd like to collaborate or talk about internships, send a message — this demo form sends an alert locally (connect to a backend to actually send mail).</p>
+        <form id="contactForm" class="contact-form" onsubmit="return false;">
+          <input id="nameField" class="input" placeholder="Your name" required>
+          <input id="emailField" class="input" placeholder="Your email" required>
+          <textarea id="messageField" class="input textarea" rows="5" placeholder="Message"></textarea>
+          <div class="form-actions">
+            <button id="sendBtn" class="btn primary">Send</button>
+            <a class="btn outline" id="emailLink" href="mailto:you@example.com">Email Directly</a>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>© <span id="year"></span> Vishwesh — Built with ❤️</div>
+      <div class="muted">Source: <a href="https://github.com/Vishwesh-AIENG" target="_blank" rel="noreferrer">github.com/Vishwesh-AIENG</a></div>
+    </footer>
+  </div>
+
+  <!-- DATA + SCRIPTS -->
+  <script>
+  /**
+   * DATA block: edit these to customize content.
+   * Note: githubUsername is set to "Vishwesh-AIENG" (public GitHub username).
+   */
+  const DATA = {
+    name: "Vishwesh",
+    title: "AI & Software Engineering Enthusiast",
+    location: "City, Country",
+    email: "you@example.com",
+    resumeUrl: "#", // add resume link or hosted file
+    githubUsername: "Vishwesh-AIENG",
+    about: "I build machine learning demos, competitive programming solutions, and open-source tools. Long-term goal: internships leading to roles at top-tier AI/Software orgs.",
+    socials: [
+      { name: "GitHub", url: "https://github.com/Vishwesh-AIENG" },
+      { name: "LinkedIn", url: "#" },
+      { name: "Twitter", url: "#" }
+    ],
+    skills: ["Python", "NumPy", "Pandas", "PyTorch", "TensorFlow", "C++", "React", "SQL", "Linux"],
+    projects: [
+      {
+        id: 1,
+        name: "Awesome-ML-Playground",
+        description: "Interactive playground showing model behaviour on toy datasets with visualisations.",
+        tech: ["React","FastAPI","PyTorch"],
+        repo: "https://github.com/Vishwesh-AIENG/awesome-ml-playground",
+        demo: "#",
+        stars: 120
+      },
+      {
+        id: 2,
+        name: "Competitive-Toolkit",
+        description: "Fast snippets & templates for programming contests and interviews.",
+        tech: ["C++","Python"],
+        repo: "https://github.com/Vishwesh-AIENG/competitive-toolkit",
+        demo: "#",
+        stars: 46
+      }
+      // add more local projects here
+    ]
+  };
+
+  /* ------------------------------
+     Helper / Utilities
+     ------------------------------ */
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => Array.from(document.querySelectorAll(selector));
+  const escape = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  /* ------------------------------
+     Populate static content (header, about)
+     ------------------------------ */
+  function populateStatic() {
+    document.title = `${DATA.name} — Portfolio`;
+    $('#year').textContent = new Date().getFullYear();
+
+    // Hero
+    $('.hero-title').innerHTML = `Hi, I'm <span class="accent">${escape(DATA.name)}</span>`;
+    $('.hero-sub').textContent = DATA.title + ' — ' + DATA.location;
+    $('#resumeBtn').href = DATA.resumeUrl;
+
+    // About
+    $('#aboutText').textContent = DATA.about;
+    $('#email').href = `mailto:${DATA.email}`;
+    $('#email').textContent = DATA.email;
+    $('#location').textContent = DATA.location;
+
+    // Socials
+    const socialsRoot = $('#socials');
+    socialsRoot.innerHTML = '';
+    for (const s of DATA.socials) {
+      const a = document.createElement('a');
+      a.href = s.url || '#';
+      a.target = '_blank';
+      a.rel = 'noreferrer';
+      a.className = 'pill';
+      a.textContent = s.name;
+      socialsRoot.appendChild(a);
+    }
+  }
+
+  /* ------------------------------
+     Skills grid
+     ------------------------------ */
+  function renderSkills() {
+    const root = $('#skillsGrid');
+    root.innerHTML = '';
+    for (const sk of DATA.skills) {
+      const el = document.createElement('div');
+      el.className = 'skill';
+      el.textContent = sk;
+      root.appendChild(el);
+    }
+  }
+
+  /* ------------------------------
+     Local Projects
+     ------------------------------ */
+  function renderLocalProjects() {
+    const root = $('#projectsGrid');
+    root.innerHTML = '';
+    for (const p of DATA.projects) {
+      const card = document.createElement('article');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <h3 class="project-title"><a href="${p.repo}" target="_blank" rel="noreferrer">${escape(p.name)}</a></h3>
+        <p class="project-desc">${escape(p.description)}</p>
+        <div class="project-meta">
+          <div class="project-tech">${(p.tech||[]).map(t => `<span class="tag">${escape(t)}</span>`).join('')}</div>
+          <div class="project-links">
+            ${p.repo ? `<a class="small-link" href="${p.repo}" target="_blank" rel="noreferrer">Repo</a>` : ''}
+            ${p.demo ? `<a class="small-link" href="${p.demo}" target="_blank" rel="noreferrer">Demo</a>` : ''}
+            <span class="muted">★ ${p.stars ?? 0}</span>
+          </div>
+        </div>
+      `;
+      root.appendChild(card);
+    }
+  }
+
+  /* ------------------------------
+     GitHub Repos (auto fetch)
+     ------------------------------ */
+  async function fetchAndRenderRepos(username) {
+    const root = $('#reposGrid');
+    const notice = $('#reposNotice');
+    root.innerHTML = '';
+    notice.textContent = '';
+
+    if (!username) {
+      notice.textContent = 'No GitHub username set.';
+      return;
+    }
+
+    notice.textContent = 'Loading repositories…';
+    try {
+      const url = `https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=100&sort=updated`;
+      const res = await fetch(url);
+      if (res.status === 404) {
+        notice.textContent = 'GitHub user not found.';
+        return;
+      }
+      if (res.status === 403) {
+        // rate-limited
+        const reset = res.headers.get('x-ratelimit-reset');
+        let msg = 'GitHub rate limit reached.';
+        if (reset) {
+          const until = new Date(parseInt(reset,10)*1000);
+          msg += ` Rate limit resets at ${until.toLocaleString()}.`;
+        }
+        notice.textContent = msg;
+        return;
+      }
+      const json = await res.json();
+      if (!Array.isArray(json)) {
+        notice.textContent = 'Unexpected GitHub response.';
+        console.error(json);
+        return;
+      }
+      if (json.length === 0) {
+        notice.textContent = 'No public repositories found.';
+        return;
+      }
+      notice.textContent = '';
+
+      // simple client-side search support
+      const renderRepoCard = repo => {
+        const card = document.createElement('article');
+        card.className = 'repo-card';
+        const lang = repo.language ? `<span class="tag">${escape(repo.language)}</span>` : '';
+        card.innerHTML = `
+          <h3 class="repo-title"><a href="${repo.html_url}" target="_blank" rel="noreferrer">${escape(repo.name)}</a></h3>
+          ${repo.description ? `<p class="repo-desc">${escape(repo.description)}</p>` : ''}
+          <div class="repo-meta">
+            <div>${lang}</div>
+            <div class="muted">★ ${repo.stargazers_count} • Forks ${repo.forks_count}</div>
+          </div>
+        `;
+        return card;
+      };
+
+      // store repos for client-side search
+      window.__MY_REPOS__ = json;
+      root.innerHTML = '';
+      for (const r of json) root.appendChild(renderRepoCard(r));
+    } catch (err) {
+      console.error('Fetch failed', err);
+      notice.textContent = 'Failed to load repositories (see console).';
+    }
+  }
+
+  /* ------------------------------
+     Repo Search Handler (client-side)
+     ------------------------------ */
+  function wireRepoSearch() {
+    $('#repoSearch').addEventListener('input', (e) => {
+      const q = (e.target.value || '').toLowerCase();
+      const list = window.__MY_REPOS__ || [];
+      const root = $('#reposGrid');
+      root.innerHTML = '';
+      const filtered = list.filter(r => (r.name && r.name.toLowerCase().includes(q)) || (r.description && r.description.toLowerCase().includes(q)));
+      if (filtered.length === 0) {
+        $('#reposNotice').textContent = filtered.length === 0 ? 'No repositories match your search.' : '';
+      } else {
+        $('#reposNotice').textContent = '';
+      }
+      for (const r of filtered) {
+        const el = document.createElement('div');
+        el.className = 'repo-card';
+        el.innerHTML = `<h3 class="repo-title"><a href="${r.html_url}" target="_blank" rel="noreferrer">${escape(r.name)}</a></h3>
+                        ${r.description ? `<p class="repo-desc">${escape(r.description)}</p>` : ''}
+                        <div class="repo-meta"><div>${r.language ? `<span class="tag">${escape(r.language)}</span>` : ''}</div><div class="muted">★ ${r.stargazers_count}</div></div>`;
+        root.appendChild(el);
+      }
+    });
+  }
+
+  /* ------------------------------
+     Contact form (demo)
+     ------------------------------ */
+  function wireContact() {
+    $('#sendBtn').addEventListener('click', () => {
+      const name = $('#nameField').value.trim();
+      const email = $('#emailField').value.trim();
+      const msg = $('#messageField').value.trim();
+      if (!name || !email || !msg) { alert('Please fill name, email and message.'); return; }
+      alert(`Demo: Message from ${name} (${email}):\\n\\n${msg}`);
+      // clear fields
+      $('#messageField').value = '';
+    });
+  }
+
+  /* ------------------------------
+     Theme toggle (persist)
+     ------------------------------ */
+  function initTheme() {
+    const tbtn = $('#themeToggle');
+    const saved = localStorage.getItem('site-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(saved);
+
+    tbtn.addEventListener('click', () => {
+      setTheme(document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark');
+    });
+
+    function setTheme(name) {
+      if (name === 'dark') {
+        document.documentElement.classList.add('theme-dark');
+        tbtn.textContent = '☀️';
+      } else {
+        document.documentElement.classList.remove('theme-dark');
+        tbtn.textContent = '🌙';
+      }
+      localStorage.setItem('site-theme', name);
+    }
+  }
+
+  /* ------------------------------
+     Init everything
+     ------------------------------ */
+  function init() {
+    populateStatic();
+    renderSkills();
+    renderLocalProjects();
+    wireRepoSearch();
+    fetchAndRenderRepos(DATA.githubUsername); // loads repos from GitHub
+    $('#refreshRepos').addEventListener('click', () => fetchAndRenderRepos(DATA.githubUsername));
+    wireContact();
+    initTheme();
+
+    // improve accessibility: focus indicator for keyboard users
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.documentElement.classList.add('show-focus');
+    });
+  }
+
+  // start
+  init();
+
+  </script>
+</body>
+</html>
